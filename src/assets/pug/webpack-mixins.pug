@@ -1,0 +1,31 @@
+//- 了解更多 https://github.com/velenir/html-webpack-template-pug
+- var selfclosingTags = new Set(["area", "base", "br", "col", "embed", "hr", "img", "input", "link", "meta", "param", "source", "track", "wbr"]);
+
+if !htmlWebpackPlugin.options
+  - htmlWebpackPlugin.options = {};
+
+mixin injectExtras(extras)
+  each item in extras
+    if typeof item === "string" || item instanceof String
+      if item.endsWith(".css")
+        - item = {tag: "link", href: item, rel: "stylesheet"};
+      else if item.endsWith(".js")
+        - item = {tag: "script", src: item};
+      else
+        - throw new Error("Can't deduce tag from filename: " + item);
+    else if !item.tag
+      - throw new Error("Item " + JSON.stringify(item) + " must have a valid tag property")
+
+    - var attrs = Object.assign({}, item, {tag: null, innerHTML: null});
+    if selfclosingTags.has(item.tag)
+      #{item.tag}&attributes(attrs)/
+    else
+      #{item.tag}&attributes(attrs)!= item.innerHTML
+
+mixin injectExtrasHead
+  if htmlWebpackPlugin.options.injectExtras && htmlWebpackPlugin.options.injectExtras.head
+    +injectExtras(htmlWebpackPlugin.options.injectExtras.head)
+
+mixin injectExtrasBody
+  if htmlWebpackPlugin.options.injectExtras && htmlWebpackPlugin.options.injectExtras.body
+    +injectExtras(htmlWebpackPlugin.options.injectExtras.body)

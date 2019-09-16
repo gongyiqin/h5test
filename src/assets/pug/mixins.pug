@@ -1,0 +1,6 @@
+mixin shop-cover
+  .image-placeholder&attributes(attributes)
+    img(src='/static/images/cover-default.png', :class='{"has-holder": it.cover}').placeholder
+    .holder-content.align-c(v-if='it.cover')
+      i.v-align
+      img(:src='it.cover').real

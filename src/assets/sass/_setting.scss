@@ -1,0 +1,29 @@
+// Color
+$white: #FFF;
+$black: #000;
+
+$primary: #FF5000;
+$primary-bg: #FF5000;
+$primary-bg-light: #FF5F1A;
+$primary-bg-lighter: #FFB086;
+$primary-bg-lightest: #FFE4D0;
+$primary: #FF5000;
+
+$gray: #888;
+$grayLight: #AAA;
+$grayLighter: #DDD;
+$grayLightest: #F2F2F2;
+$grayDark: #666;
+$grayDarker: #333;
+$grayDarkest: #111;
+
+$orange: #FFCE00;
+
+@mixin padding-tb($top, $bottom: $top) {
+  padding-top: $top; padding-bottom: $bottom;
+}
+
+@mixin icon-circle($size, $iconSize, $color, $bgcolor) {
+  width: $size; height: $size; border-radius: 100%; text-align: center; line-height: $size;
+  color: $color; border: 1px solid $white; background: $bgcolor; font-size: $iconSize;
+}
